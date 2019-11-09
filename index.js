@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const twilioReq = require('./twilioComponent.js');
-
+const register = require('./register.js');
 const app = express();
 
 
@@ -15,6 +15,7 @@ app.post('/sendMessage', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
+  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'));
   res.send('Resgisteration complete.');
 });
 
