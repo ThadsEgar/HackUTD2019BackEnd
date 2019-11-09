@@ -4,13 +4,11 @@ var authToken = 'ac791a45751bf01ee020aae9f22e31be';   // Your Auth Token from ww
 var twilio = require('twilio');
 var client = new twilio(accountSid, authToken);
 
-const sendingNumber = '+14692370945';
-console.log("seinding messge");
+const sendingNumber = '+12075187824';
 
 
 console.log("sent message");
 exports.sendMessage = function(phoneNumber) {
-    console.log("seinding messge");
     client.messages.create({
         body: 'Hello from Node',
         to: phoneNumber,  // Text this number

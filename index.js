@@ -11,9 +11,8 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/sendMessage', (req, res) => {
-  console.log("testing");
-  console.log(req.body.phoneNumber);
-  // twilioReq.sendMessage(req.body.phoneNumber);
+  console.log(req.param('phoneNumber'));
+  twilioReq.sendMessage(req.param('phoneNumber'));
   res.send('Login page');
 });
 
