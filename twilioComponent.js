@@ -4,14 +4,18 @@ var authToken = 'ac791a45751bf01ee020aae9f22e31be';   // Your Auth Token from ww
 var twilio = require('twilio');
 var client = new twilio(accountSid, authToken);
 
+const sendingNumber = '+14692370945';
+console.log("seinding messge");
 
 
-exports.sendMessage = function() {
+console.log("sent message");
+exports.sendMessage = function(phoneNumber) {
     console.log("seinding messge");
     client.messages.create({
         body: 'Hello from Node',
-        to: '+2147097666',  // Text this number
-        from: '+4692370945' // From a valid Twilio number
+        to: phoneNumber,  // Text this number
+        from: sendingNumber // From a valid Twilio number
     })
-    .then((message) => console.log(message.sid));
+    .then((message) => console.log(message.sid), (reason) => console.log(reason)); 
+    
 };
