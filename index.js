@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const twilio = require('./twilioComponent.js');
 
 const app = express();
 
 app.use(cors());
 
 app.get('/login', (req, res) => {
+  console.log("testing");
+  twilio.sendMessage();
   res.send('Login page');
 });
 
