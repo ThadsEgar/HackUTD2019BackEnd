@@ -20,6 +20,7 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+  console.log('calling login');
   // TODO: Login page
 });
 

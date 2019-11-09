@@ -7,8 +7,10 @@ var client = new twilio(accountSid, authToken);
 const sendingNumber = '+12075187824';
 
 
-console.log("sent message");
+console.log("initialize twilio");
 exports.sendMessage = function(phoneNumber) {
+    console.log("testing sent message");
+
     client.messages.create({
         body: 'Hello from Node',
         to: phoneNumber,  // Text this number
