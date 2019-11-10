@@ -7,10 +7,11 @@ const collectionName = 'user_info';
 exports.checkEmergencyNear = function() {
   console.log('in emergency');
   MongoClient.connect(mongoLink, (err, client) => {
-
+    if (err) return console.log(err);
     const db = client.db(dataBaseName);
     db.collection(collectionName).find().forEach(function(doc){
-      console.log(doc);
+      var location = doc.location;
+      console.log(location);
     });
   });
 }

@@ -32,8 +32,6 @@ app.get('/home', (req, res) => {
   res.send('Home page')
 });
 
-checkEmergency.checkEmergencyNear();
-
 cron.schedule("* * * * *", function() {
     console.log("running a task every minute");
     checkEmergency.checkEmergencyNear();
