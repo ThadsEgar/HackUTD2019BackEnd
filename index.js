@@ -45,6 +45,10 @@ app.get('/home', (req, res) => {
   res.send('Home page')
 });
 
+app.get('/shelters', (req, res) => {
+  res.send('Home page')
+});
+
 cron.schedule("* * * * *", function() {
     console.log("running a task every minute updating to check if there is emergency situation");
     checkEmergency.checkEmergencyNear();

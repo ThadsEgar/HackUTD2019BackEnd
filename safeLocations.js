@@ -8,10 +8,10 @@ var baseUrl = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureSer
 //var latitude = '1';
 //var longitude = '1';
 exports.safePlacesForUser = function (username, latitude, longitude) {
-  var smallLat = parseInt(latitude) - .25;
-  var bigLat = parseInt(latitude) + .25;
-  var smallLong = parseInt(longitude) - .4;
-  var bigLong = parseInt(longitude) + .4;
+  var smallLat = parseInt(latitude) - .40;
+  var bigLat = parseInt(latitude) + .40;
+  var smallLong = parseInt(longitude) - .6;
+  var bigLong = parseInt(longitude) + .6;
   var baseLeft = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1=1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=' + smallLong + ',' + smallLat + ',' + bigLong + ',' + bigLat + '&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json';
   // var baseLeft.concat(smallLat,'%2C',smallLong,'%2C',bigLat,'%2C',bigLong,'&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json');
   console.log(baseLeft);
@@ -21,7 +21,7 @@ exports.safePlacesForUser = function (username, latitude, longitude) {
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
     var bodyJSON = JSON.parse(body);
-    if (bodyJSON.features[0].attributes) {
+    if (bodyJSON.features[0]) {
       console.log(bodyJSON.features[0].attributes.SHELTER_ID);
       for (var i = 0; i < bodyJSON.features.length; i++) {
         var shelterID = bodyJSON.features[i].attributes.SHELTER_ID;

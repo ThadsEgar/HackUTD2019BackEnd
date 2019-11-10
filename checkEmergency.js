@@ -15,5 +15,6 @@ exports.checkEmergencyNear = function() {
       var phonenumber = doc.userphone;
       weatherValidator.naturalDiasterIsOccuring(latitude, longitude, phonenumber);
     });
+    client.close();
   });
 }

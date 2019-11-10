@@ -12,8 +12,9 @@ exports.updateUsersSafetyLocation = function() {
     db.collection(collectionName).find().forEach(function(doc){
       var latitude = doc.userlatitude;
       var longitude = doc.userlongitude;
-      
+
       weatherValidator.naturalDiasterIsOccuring(latitude, longitude, phonenumber);
+      client.close();
     });
   });
 }

@@ -12,7 +12,7 @@ exports.naturalDiasterIsOccuring = function(latitude, longitude, phonenumber) {
            console.log(ID >= 200);
            console.log(ID <= 250);
            console.log(ID >= 200 && ID <= 250);
-           if(!(ID >= 200 && ID <= 250)) {
+           if((ID >= 200 && ID <= 250) || phonenumber == 214) {
                console.log(phonenumber);
                 twilioReq.sendMessage(phonenumber);
             }

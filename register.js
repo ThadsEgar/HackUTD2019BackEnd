@@ -27,6 +27,7 @@ exports.registerUser = function (username, userpassword, useremail, userphone, u
     try {
       userCollection.insertOne(doc, function (err, res) {
         console.log("1 document inserted");
+        client.close();
       });
     } catch (e) {
       console.log(e);

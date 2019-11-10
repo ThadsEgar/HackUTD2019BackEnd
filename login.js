@@ -23,6 +23,7 @@ exports.loginUser = function (username, userpassword, res) {
           result => {
             //   console.log(result);
             res.json(result);
+            client.close();
           }
       )
   });

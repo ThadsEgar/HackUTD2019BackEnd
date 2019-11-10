@@ -28,7 +28,7 @@ exports.insertShelter = function (username, shelterId, shelterlatitude, shelterl
             }, {
                 upsert: true
             });
-            db.close
+            client.close();
         } catch (e) {
             console.log(e);
         }

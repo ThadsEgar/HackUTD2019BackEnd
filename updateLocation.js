@@ -23,6 +23,7 @@ exports.updateLocationForUser = function (username, userLatitude, userLongitude,
         }
     }).then((result) => {
             res.send(result);
+            client.close();
         }
     );
   });
