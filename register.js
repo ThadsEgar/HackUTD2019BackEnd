@@ -15,6 +15,7 @@ exports.registerUser = function (username, userpassword, useremail, userphone) {
     console.log('connection established ', dataBaseName);
     var userCollection = db.collection(collectionName);
     var doc = {
+      _id: username,
       'username': username,
       'userpassword': userpassword,
       'useremail': useremail,
