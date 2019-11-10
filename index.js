@@ -14,8 +14,6 @@ const updateLocation = require('./updateLocation.js');
 app.use(cors());
 app.use(bodyParser.json())
 
-weatherValidator.withinSafeVicinity(33.150661,-96.825081);
-
 app.post('/sendMessage', (req, res) => {
   //console.log(req.param('phoneNumber'));
   //twilioReq.sendMessage(req.param('phoneNumber'));

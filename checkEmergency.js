@@ -5,8 +5,6 @@ const collectionName = 'user_info';
 const weatherValidator = require('./weatherValidator.js');
 const twilioReq = require('./twilioComponent.js');
 
-
-
 exports.checkEmergencyNear = function() {
   console.log('in emergency');
   MongoClient.connect(mongoLink, (err, client) => {
@@ -15,9 +13,12 @@ exports.checkEmergencyNear = function() {
     db.collection(collectionName).find().forEach(function(doc){
       var latitude = doc.userlatitude;
       var longitude = doc.userlongitude;
+      console.log("weather",!weatherValidator.withinSafeVicinity(latitude, longitude));
       if(!weatherValidator.withinSafeVicinity(latitude, longitude)) {
-        console.log("not safe vicinity", doc.username)
-      } 
+        console.log("not safe vicinity", doc.username);
+        console.log(latitude, longitude);
+        //twilioReq.sendMessage(doc.userphone);
+      }
     });
   });
 }
