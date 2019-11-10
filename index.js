@@ -2,11 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const twilioReq = require('./twilioComponent.js');
 const register = require('./register.js');
+const login = require('./login.js');
 const app = express();
 
-
 app.use(cors());
-
 
 app.post('/sendMessage', (req, res) => {
   console.log(req.param('phoneNumber'));
@@ -21,12 +20,9 @@ app.post('/register', (req, res) => {
 
 app.get('/login', (req, res) => {
 
-  console.log('calling login');
+  res.json(login.loginUser(req.param('username'), req.param('userpassword')));
+  // res.send("temp text");
   // TODO: Login page
-});
-
-app.get('/login', (req, res) => {
-  res.send('Login page');
 });
 
 app.get('/home', (req,res) => {
