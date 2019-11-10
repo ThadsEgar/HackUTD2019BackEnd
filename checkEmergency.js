@@ -2,6 +2,9 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoLink = 'mongodb+srv://abhi:hacker@cluster0-loqpl.gcp.mongodb.net/test?retryWrites=true&w=majority';
 const dataBaseName = 'users';
 const collectionName = 'user_info';
+const weatherValidator = require('./weatherValidator.js');
+const twilioReq = require('./twilioComponent.js');
+
 
 
 exports.checkEmergencyNear = function() {
@@ -10,7 +13,11 @@ exports.checkEmergencyNear = function() {
     if (err) return console.log(err);
     const db = client.db(dataBaseName);
     db.collection(collectionName).find().forEach(function(doc){
-      var location = doc.location;
+      var latitude = doc.latitude;
+      var longitude = doc.longitude;
+      if(!weatherValidator.withinSafeVicinity(latitude, longitude)) {
+        twilioReq.sendMessage(doc.userphone);
+      } 
       console.log(location);
     });
   });

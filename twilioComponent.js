@@ -8,7 +8,7 @@ const sendingNumber = '+12075187824';
 
 
 console.log("initialize twilio");
-exports.sendMessage = function(phoneNumber, res) {
+exports.sendMessage = function(phoneNumber) {
     console.log("testing sent message");
 
     client.messages.create({
@@ -16,6 +16,6 @@ exports.sendMessage = function(phoneNumber, res) {
         to: phoneNumber,  // Text this number
         from: sendingNumber // From a valid Twilio number
     })
-    .then((message) => res.send(message.sid), (reason) => res.send(reason)); 
+    .then((message) => console.log(message.sid), (reason) => console.log(reason)); 
     
 };
