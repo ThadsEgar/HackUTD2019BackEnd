@@ -3,7 +3,7 @@ const mongoLink = 'mongodb+srv://abhi:hacker@cluster0-loqpl.gcp.mongodb.net/test
 const dataBaseName = 'users';
 const collectionName = 'user_info';
 
-exports.loginUser = function (username, userpassword) {
+exports.loginUser = function (username, userpassword, res) {
   
     MongoClient.connect(mongoLink, (err, client) => {
       console.log("testing connection");
@@ -21,10 +21,9 @@ exports.loginUser = function (username, userpassword) {
           }
       }).then(
           result => {
-              console.log(result);
-            return result;
+            //   console.log(result);
+            res.json(result);
           }
       )
-    console.log("run login method");
   });
 }

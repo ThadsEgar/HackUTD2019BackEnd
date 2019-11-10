@@ -19,13 +19,13 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-
-  res.json(login.loginUser(req.param('username'), req.param('userpassword')));
+  login.loginUser(req.param('username'), req.param('userpassword'), res);
+  // res.json();
   // res.send("temp text");
   // TODO: Login page
 });
 
-app.get('/home', (req,res) => {
+app.get('/home', (req, res) => {
   res.send('Home page')
 });
 
