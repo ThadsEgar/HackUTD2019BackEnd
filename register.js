@@ -3,15 +3,17 @@ const mongoLink = 'mongodb+srv://abhi:hacker@cluster0-loqpl.gcp.mongodb.net/test
 const dataBaseName = 'users';
 const collectionName = 'user_info';
 
+
 exports.registerUser = function (username, userpassword, useremail, userphone) {
   console.log("calling function that calls connection");
 
-  MongoClient.connect(mongoLink, (err, dataBaseName) => {
+  MongoClient.connect(mongoLink, (err, client) => {
     console.log("testing connection");
     if (err) return console.log(err);
+    const db = client.db(dataBaseName);
 
     console.log('connection established ', dataBaseName);
-    var userCollection = dataBaseName.collection(collectionName);
+    var userCollection = db.collection(collectionName);
     var doc = {
       'username': username,
       'userpassword': userpassword,
