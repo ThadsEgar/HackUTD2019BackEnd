@@ -14,9 +14,11 @@ const updateLocation = require('./updateLocation.js');
 app.use(cors());
 app.use(bodyParser.json())
 
+weatherValidator.withinSafeVicinity(33.150661,-96.825081);
+
 app.post('/sendMessage', (req, res) => {
-  console.log(req.param('phoneNumber'));
-  twilioReq.sendMessage(req.param('phoneNumber'));
+  //console.log(req.param('phoneNumber'));
+  //twilioReq.sendMessage(req.param('phoneNumber'));
   res.send("message sent successfully");
 });
 
@@ -30,7 +32,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/updateLocation', (req, res) => {
-  updateLocation.updateLocationForUser(req.param('username'), req.param('userlatitude'),req.param('userlongitude'), res);
+  updateLocation.updateLocationForUser(req.param('username'), req.param('userLatitude'),req.param('userLongitude'), res);
 
 });
 
