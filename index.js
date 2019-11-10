@@ -4,14 +4,17 @@ const fs = require('fs');
 const cron = require("node-cron");
 const twilioReq = require('./twilioComponent.js');
 const register = require('./register.js');
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const login = require('./login.js');
+const weatherValidator = require('./weatherValidator.js');
 const checkEmergency = require('./checkEmergency.js');
 const app = express();
+const updateLocation = require('./updateLocation.js');
 
 app.use(cors());
 app.use(bodyParser.json())
 
+weatherValidator.withinSafeVicinity(33.150661,-96.825081);
 app.post('/sendMessage', (req, res) => {
   console.log(req.param('phoneNumber'));
   twilioReq.sendMessage(req.param('phoneNumber'));
@@ -19,7 +22,7 @@ app.post('/sendMessage', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'), req.param('userLocation'));
+  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'), req.param('userlatitude'), req.param('userlongitude'));
   res.send('Resgisteration complete.');
 });
 
@@ -28,6 +31,11 @@ app.get('/login', (req, res) => {
   // res.json();
   // res.send("temp text");
   // TODO: Login page
+});
+
+app.post('/updateLocation', (req, res) => {
+  updateLocation.updateLocationForUser(req.param('username'), req.param('userLatitude'),req.param('userLongitude'), res);
+
 });
 
 app.get('/home', (req, res) => {

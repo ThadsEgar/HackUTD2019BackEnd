@@ -3,8 +3,7 @@ const mongoLink = 'mongodb+srv://abhi:hacker@cluster0-loqpl.gcp.mongodb.net/test
 const dataBaseName = 'users';
 const collectionName = 'user_info';
 
-
-exports.registerUser = function (username, userpassword, useremail, userphone, userlatitude, userlongitude) {
+exports.updateLocationForUser = function (username, userLatitude, userLongitude, res) {
   console.log("calling function that calls connection");
 
   MongoClient.connect(mongoLink, (err, client) => {
@@ -14,23 +13,17 @@ exports.registerUser = function (username, userpassword, useremail, userphone, u
 
     console.log('connection established ', dataBaseName);
     var userCollection = db.collection(collectionName);
-    var doc = {
-      _id: username,
-      'username': username,
-      'userpassword': userpassword,
-      'useremail': useremail,
-      'userphone': userphone,
-      'latitude': userlatitude,
-      'longitude' : userlongitude, 
-    };
-
-    try {
-      userCollection.insertOne(doc, function (err, res) {
-        console.log("1 document inserted");
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    userCollection.updateOne({
+        _id : username
+    }, {
+        $set :
+        {
+            "latitude" : userLatitude,
+            "longitude" : userLongitude
+        }
+    }).then((result) => {
+            res.send(result);
+        }
+    );
   });
-  console.log("run insert method");
 }
