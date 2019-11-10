@@ -35,5 +35,4 @@ exports.registerUser = function (username, userpassword, useremail, userphone, u
     }
   });
   console.log("run insert method");
-
 }

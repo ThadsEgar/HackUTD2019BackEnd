@@ -4,12 +4,9 @@ const fs = require('fs');
 const cron = require("node-cron");
 const twilioReq = require('./twilioComponent.js');
 const register = require('./register.js');
-<<<<<<< HEAD
 var bodyParser = require('body-parser')
-=======
 const login = require('./login.js');
 const checkEmergency = require('./checkEmergency.js');
->>>>>>> 8e7b0d31a8fe65439e76559cb3f91533fb48b166
 const app = express();
 
 app.use(cors());
