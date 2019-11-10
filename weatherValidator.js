@@ -1,7 +1,9 @@
 const weather = require('openweather-apis');
 const key = 'bba33be91c2329790a17f4ae9ba16d86';
+const twilioReq = require('./twilioComponent.js');
+
 weather.setAPPID(key);
-exports.withinSafeVicinity = function(latitude, longitude) {
+exports.naturalDiasterIsOccuring = function(latitude, longitude, phonenumber) {
     weather.setCoordinate(latitude, longitude);
     // get all the JSON file returned from server (rich of info)
        weather.getAllWeather(function(err, JSONObj){
@@ -10,8 +12,9 @@ exports.withinSafeVicinity = function(latitude, longitude) {
            console.log(ID >= 200);
            console.log(ID <= 250);
            console.log(ID >= 200 && ID <= 250);
-           if(ID >= 200 && ID <= 250) {
-             return false;}
-           else {return true;}
+           if(!(ID >= 200 && ID <= 250)) {
+               console.log(phonenumber);
+                twilioReq.sendMessage(phonenumber);
+            }
        });
 }
