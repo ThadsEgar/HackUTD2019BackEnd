@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 const login = require('./login.js');
 const weatherValidator = require('./weatherValidator.js');
 const checkEmergency = require('./checkEmergency.js');
+const safeLocations = require('./safeLocations.js');
+const safeLocationsIterator = require('./safeLocationsIterator.js');
 const app = express();
 const updateLocation = require('./updateLocation.js');
 const safeLocationsMongo = require('./safeLocationMongo.js');
@@ -43,14 +45,6 @@ app.get('/home', (req, res) => {
   res.send('Home page')
 });
 
-app.post('/safeLocations', (req,res) => {
-
-});
-
-app.get('/safeLocations', () => {
-
-});
-
 cron.schedule("* * * * *", function() {
     console.log("running a task every minute updating to check if there is emergency situation");
     checkEmergency.checkEmergencyNear();
@@ -58,6 +52,7 @@ cron.schedule("* * * * *", function() {
 
 cron.schedule("* * * * *", function() {
   console.log("running a task every minute for updating closest safe");
+  safeLocationsIterator.safeLocationsIterateThroughAll();
   // updateSafe.updateUsersSafetyLocation();
 });
 

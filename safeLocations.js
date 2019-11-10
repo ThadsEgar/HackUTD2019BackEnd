@@ -1,20 +1,35 @@
-const okhttp = require('okhttp');
-
-var Request = okhttp.Request;
-var RequestBody = okhttp.requestBody;
-var RequestBuilder = okhttp.RequestBuilder;
-var MultiPartBuilder = okhttp.MultiPartBuilder;
+const request = require('request');
+const safeLocationMongo = require('./safeLocationMongo.js');
 var baseUrl = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1%3D1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=-96.807%2C32.973%2C-96.697%2C32.999&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json';
+var baseLeft = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1%3D1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=';
 //query?where=1%3D1&outFields=*&outSR=4326&f=json';
 //-+.013, -+.054
-function onComplete(msg) {
-  console.log(msg.url);
-}
+//var username = 'us';
+//var latitude = '1';
+//var longitude = '1';
+exports.safePlacesForUser = function(username, latitude, longitude) {
+  var smallLat = parseInt(latitude) - .013;
+  var bigLat = parseInt(latitude) + .013;
+  var smallLong = parseInt(longitude) - .054;
+  var bigLong = parseInt(longitude) + .054;
+  baseLeft = baseLeft + smallLong + '%2C' + smallLat + '%2C' + bigLong + '%2C' + bigLat + '&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json';
+  //baseLeft.concat(smallLat,'%2C',smallLong,'%2C',bigLat,'%2C',bigLong,'&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json');
+  console.log(baseLeft);
 
-function onError(err) {
-  console.log('error okhttp');
-}
-
-exports.safePlacesForUser = function(latitude, longitude) {
-  new RequestBuilder().url(baseUrl).buildAndExecute().then(onComplete).catch(onError);
+request(baseLeft, function (error, response, body) {
+  console.error('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+  var bodyJSON = JSON.parse(body);
+  console.log(bodyJSON.features[0].attributes.SHELTER_ID);
+  for(var i = 0; i < bodyJSON.features.length; i++) {
+    var shelterID  = bodyJSON.features[i].attributes.SHELTER_ID;
+    var lat = bodyJSON.features[i].attributes.LATITUDE;
+    var long = bodyJSON.features[i].attributes.LONGITUDE;
+    console.log(shelterID);
+    console.log(lat);
+    console.log(long);
+    safeLocationMongo.insertShelter(username, shelterID, lat, long);
+  }
+});
 }
