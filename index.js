@@ -10,6 +10,7 @@ const weatherValidator = require('./weatherValidator.js');
 const checkEmergency = require('./checkEmergency.js');
 const app = express();
 const updateLocation = require('./updateLocation.js');
+const safeLocationsMongo = require('./safeLocationMongo.js');
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -24,6 +25,11 @@ app.post('/register', (req, res) => {
   register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'), req.param('userlatitude'), req.param('userlongitude'));
   res.send('Resgisteration complete.');
 });
+
+app.post('/shelterInsert', (req , res) => {
+  safeLocationsMongo.insertShelter(req.param('username'), req.param('shelterId'), req.param('shelterlatitude'), req.param('shelterlongitude'));
+  res.send("Finished");
+})
 
 app.get('/login', (req, res) => {
   login.loginUser(req.param('username'), req.param('userpassword'), res);
@@ -52,7 +58,7 @@ cron.schedule("* * * * *", function() {
 
 cron.schedule("* * * * *", function() {
   console.log("running a task every minute for updating closest safe");
-  updateSafe.updateUsersSafetyLocation();
+  // updateSafe.updateUsersSafetyLocation();
 });
 
 app.listen(4000, () => {
