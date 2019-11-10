@@ -9,10 +9,8 @@ exports.checkEmergencyNear = function() {
   MongoClient.connect(mongoLink, (err, client) => {
 
     const db = client.db(dataBaseName);
-    db.collection(collectionName).find({}, function(err, doc){
-    doc.forEach(function(err,doc){
+    db.collection(collectionName).find().forEach(function(doc){
       console.log(doc);
-    });
     });
   });
 }
