@@ -25,13 +25,10 @@ exports.registerUser = function (username, userpassword, useremail, userphone, u
 
     try {
       userCollection.insertOne(doc, function (err, res) {
-        if (err) throw err;
         console.log("1 document inserted");
       });
     } catch (e) {
       console.log(e);
-      dataBaseName.close();
-
     }
   });
   console.log("run insert method");
