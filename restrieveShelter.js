@@ -9,6 +9,6 @@ exports.retrieveShelters = function (username, res) {
         var arr = [];
         if (err) return console.log(err);
         const db = client.db(dataBaseName);
-        db.collection(collectionName).findOne({_id : username}).then((result) => res.send(result.shelter));
+        db.collection(collectionName).findOne({_id : username}).then((result) => res.send(result.shelter[0]));
     });
 }
