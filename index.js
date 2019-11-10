@@ -15,11 +15,12 @@ app.post('/sendMessage', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'));
+  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'), req.param('userLocation'));
   res.send('Resgisteration complete.');
 });
 
-app.post('/login', (req, res) => {
+app.get('/login', (req, res) => {
+
   console.log('calling login');
   // TODO: Login page
 });
