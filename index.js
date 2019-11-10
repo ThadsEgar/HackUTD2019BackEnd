@@ -1,14 +1,19 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const cron = require("node-cron");
 const twilioReq = require('./twilioComponent.js');
 const register = require('./register.js');
+<<<<<<< HEAD
 var bodyParser = require('body-parser')
+=======
+const login = require('./login.js');
+const checkEmergency = require('./checkEmergency.js');
+>>>>>>> 8e7b0d31a8fe65439e76559cb3f91533fb48b166
 const app = express();
-
 
 app.use(cors());
 app.use(bodyParser.json())
-
 
 app.post('/sendMessage', (req, res) => {
   console.log(req.param('phoneNumber'));
@@ -17,21 +22,24 @@ app.post('/sendMessage', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'));
+  register.registerUser(req.param('username'), req.param('userpassword'), req.param('useremail'), req.param('userphone'), req.param('userLocation'));
   res.send('Resgisteration complete.');
 });
 
-app.post('/login', (req, res) => {
-  console.log('calling login');
+app.get('/login', (req, res) => {
+  login.loginUser(req.param('username'), req.param('userpassword'), res);
+  // res.json();
+  // res.send("temp text");
   // TODO: Login page
 });
 
-app.get('/login', (req, res) => {
-  res.send('Login page');
+app.get('/home', (req, res) => {
+  res.send('Home page')
 });
 
-app.get('/home', (req,res) => {
-  res.send('Home page')
+cron.schedule("* * * * *", function() {
+    console.log("running a task every minute");
+    checkEmergency.checkEmergencyNear();
 });
 
 app.listen(4000, () => {

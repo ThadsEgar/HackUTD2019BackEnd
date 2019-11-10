@@ -4,7 +4,7 @@ const dataBaseName = 'users';
 const collectionName = 'user_info';
 
 
-exports.registerUser = function (username, userpassword, useremail, userphone) {
+exports.registerUser = function (username, userpassword, useremail, userphone, userLocation) {
   console.log("calling function that calls connection");
 
   MongoClient.connect(mongoLink, (err, client) => {
@@ -19,7 +19,8 @@ exports.registerUser = function (username, userpassword, useremail, userphone) {
       'username': username,
       'userpassword': userpassword,
       'useremail': useremail,
-      'userphone': userphone
+      'userphone': userphone,
+      'location': userLocation
     };
 
     try {
