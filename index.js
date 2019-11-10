@@ -46,8 +46,13 @@ app.get('/safeLocations', () => {
 });
 
 cron.schedule("* * * * *", function() {
-    console.log("running a task every minute");
+    console.log("running a task every minute updating to check if there is emergency situation");
     checkEmergency.checkEmergencyNear();
+});
+
+cron.schedule("* * * * *", function() {
+  console.log("running a task every minute for updating closest safe");
+  updateSafe.updateUsersSafetyLocation();
 });
 
 app.listen(4000, () => {
