@@ -17,8 +17,7 @@ app.use(bodyParser.json())
 weatherValidator.withinSafeVicinity(33.150661,-96.825081);
 app.post('/sendMessage', (req, res) => {
   console.log(req.param('phoneNumber'));
-  twilioReq.sendMessage(req.param('phoneNumber'));
-  res.send('Login page');
+  twilioReq.sendMessage(req.param('phoneNumber'), res);
 });
 
 app.post('/register', (req, res) => {

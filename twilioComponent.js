@@ -8,14 +8,14 @@ const sendingNumber = '+12075187824';
 
 
 console.log("initialize twilio");
-exports.sendMessage = function(phoneNumber) {
+exports.sendMessage = function(phoneNumber, res) {
     console.log("testing sent message");
 
     client.messages.create({
-        body: 'Hello from Node',
+        body: 'There is an emergency event occuring, go to the nearest safe location.',
         to: phoneNumber,  // Text this number
         from: sendingNumber // From a valid Twilio number
     })
-    .then((message) => console.log(message.sid), (reason) => console.log(reason)); 
+    .then((message) => res.send(message.sid), (reason) => res.send(reason)); 
     
 };
