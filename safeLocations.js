@@ -1,7 +1,7 @@
 const request = require('request');
 const safeLocationMongo = require('./safeLocationMongo.js');
 var baseUrl = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1%3D1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=-96.807%2C32.973%2C-96.697%2C32.999&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json';
-var baseLeft = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1%3D1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=';
+// var baseLeft = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1%3D1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=';
 //query?where=1%3D1&outFields=*&outSR=4326&f=json';
 //-+.013, -+.054
 //var username = 'us';
@@ -12,8 +12,8 @@ exports.safePlacesForUser = function(username, latitude, longitude) {
   var bigLat = parseInt(latitude) + .013;
   var smallLong = parseInt(longitude) - .054;
   var bigLong = parseInt(longitude) + .054;
-  baseLeft = baseLeft + smallLong + '%2C' + smallLat + '%2C' + bigLong + '%2C' + bigLat + '&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json';
-  //baseLeft.concat(smallLat,'%2C',smallLong,'%2C',bigLat,'%2C',bigLong,'&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json');
+  var baseLeft = 'https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/FeatureServer/5/query?where=1%3D1&outFields=LONGITUDE,LATITUDE,SHELTER_ID&geometry=' + smallLong + '%2C' + smallLat + '%2C' + bigLong + '%2C' + bigLat + '&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json';
+  // var baseLeft.concat(smallLat,'%2C',smallLong,'%2C',bigLat,'%2C',bigLong,'&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json');
   console.log(baseLeft);
 
 request(baseLeft, function (error, response, body) {
