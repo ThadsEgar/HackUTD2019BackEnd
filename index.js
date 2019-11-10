@@ -13,6 +13,7 @@ const safeLocationsIterator = require('./safeLocationsIterator.js');
 const app = express();
 const updateLocation = require('./updateLocation.js');
 const safeLocationsMongo = require('./safeLocationMongo.js');
+const retrieveShelter = require('./restrieveShelter');
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -29,7 +30,7 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/shelterInsert', (req , res) => {
-  safeLocationsMongo.insertShelter(req.param('username'), req.param('shelterId'), req.param('shelterlatitude'), req.param('shelterlongitude'));
+  safeLocationsMongo.insertShelters(req.param('username'), req.param('shelterId'), req.param('shelterlatitude'), req.param('shelterlongitude'));
   res.send("Finished");
 })
 
@@ -46,7 +47,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/shelters', (req, res) => {
-  res.send('Home page')
+  retrieveShelter.retrieveShelters(req.param('username'), res);
 });
 
 cron.schedule("* * * * *", function() {
