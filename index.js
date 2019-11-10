@@ -27,9 +27,6 @@ app.post('/register', (req, res) => {
 
 app.get('/login', (req, res) => {
   login.loginUser(req.param('username'), req.param('userpassword'), res);
-  // res.json();
-  // res.send("temp text");
-  // TODO: Login page
 });
 
 app.post('/updateLocation', (req, res) => {

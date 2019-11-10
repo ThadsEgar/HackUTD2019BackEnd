@@ -13,10 +13,10 @@ exports.checkEmergencyNear = function() {
     if (err) return console.log(err);
     const db = client.db(dataBaseName);
     db.collection(collectionName).find().forEach(function(doc){
-      var latitude = doc.latitude;
-      var longitude = doc.longitude;
+      var latitude = doc.userlatitude;
+      var longitude = doc.userlongitude;
       if(!weatherValidator.withinSafeVicinity(latitude, longitude)) {
-        console.log(doc.username)
+        console.log("not safe vicinity", doc.username)
       } 
     });
   });
