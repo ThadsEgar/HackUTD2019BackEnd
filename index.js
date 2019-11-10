@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const cron = require("node-cron");
 const twilioReq = require('./twilioComponent.js');
 const register = require('./register.js');
 const login = require('./login.js');
+const checkEmergency = require('./checkEmergency.js');
 const app = express();
 
 app.use(cors());
@@ -27,6 +30,13 @@ app.get('/login', (req, res) => {
 
 app.get('/home', (req, res) => {
   res.send('Home page')
+});
+
+checkEmergency.checkEmergencyNear();
+
+cron.schedule("* * * * *", function() {
+    console.log("running a task every minute");
+    checkEmergency.checkEmergencyNear();
 });
 
 app.listen(4000, () => {

@@ -20,7 +20,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "mongodb": "^3.3.3",
+    "node-cron": "^2.0.3",
     "twilio": "^3.37.0"
   }
 }
