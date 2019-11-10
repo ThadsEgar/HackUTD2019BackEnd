@@ -31,11 +31,18 @@ app.get('/login', (req, res) => {
 
 app.post('/updateLocation', (req, res) => {
   updateLocation.updateLocationForUser(req.param('username'), req.param('userLatitude'),req.param('userLongitude'), res);
-
 });
 
 app.get('/home', (req, res) => {
   res.send('Home page')
+});
+
+app.post('/safeLocations', (req,res) => {
+
+});
+
+app.get('/safeLocations', () => {
+
 });
 
 cron.schedule("* * * * *", function() {
