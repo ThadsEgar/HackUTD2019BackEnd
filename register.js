@@ -20,8 +20,8 @@ exports.registerUser = function (username, userpassword, useremail, userphone, u
       'userpassword': userpassword,
       'useremail': useremail,
       'userphone': userphone,
-      'latitude': userlatitude,
-      'longitude' : userlongitude, 
+      'userlatitude': userlatitude,
+      'userlongitude' : userlongitude, 
     };
 
     try {

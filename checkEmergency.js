@@ -16,7 +16,7 @@ exports.checkEmergencyNear = function() {
       var latitude = doc.latitude;
       var longitude = doc.longitude;
       if(!weatherValidator.withinSafeVicinity(latitude, longitude)) {
-        twilioReq.sendMessage(doc.userphone);
+        console.log(doc.username)
       } 
     });
   });

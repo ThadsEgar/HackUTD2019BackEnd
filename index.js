@@ -33,7 +33,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/updateLocation', (req, res) => {
-  updateLocation.updateLocationForUser(req.param('username'), req.param('userLatitude'),req.param('userLongitude'), res);
+  updateLocation.updateLocationForUser(req.param('username'), req.param('userlatitude'),req.param('userlongitude'), res);
 
 });
 

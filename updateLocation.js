@@ -18,8 +18,8 @@ exports.updateLocationForUser = function (username, userLatitude, userLongitude,
     }, {
         $set :
         {
-            "latitude" : userLatitude,
-            "longitude" : userLongitude
+            "userlatitude" : userLatitude,
+            "userlongitude" : userLongitude
         }
     }).then((result) => {
             res.send(result);
